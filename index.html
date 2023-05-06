@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FsAssignment</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="container" id="main">
+    <div id="message"></div>
+    <!-- <p>Toggle mode:</p> -->
+    <input
+      style="width: fit-content; background-color: black; margin: auto"
+      type="button"
+      id="toggle"
+      value="Dark mode/Light mode"
+    />
+    <form>
+      <h2>Login Form</h2>
+      <input type="text" id="loginUsername" placeholder="Username" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <input type="button" value="Login" onclick="loginFunction()" />
+    </form>
+    <br /><br /><br /><br />
+    <!-- <div id="signup-message"></div> -->
+    <form style="margin-top: 0">
+      <h2>Signup Form</h2>
+      <input type="text" id="signupUsername" placeholder="Username" />
+      <input type="password" id="signupPassword" placeholder="Password" />
+      <input
+        type="password"
+        id="signupPasswordCheck"
+        placeholder="Confirm Password"
+      />
+      <input type="button" value="Signup" onclick="signupFunction()" />
+    </form>
+  </body>
+  <script src="/js/app.js"></script>
+</html>
