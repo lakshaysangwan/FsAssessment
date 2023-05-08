@@ -264,11 +264,26 @@ function showUserDetailsInputForm(username) {
   document.body.appendChild(form);
 }
 async function saveData(username) {
+  const name = document.getElementById("name-input").value;
+  const email = document.getElementById("email-input").value;
+  const phone = document.getElementById("phone-input").value;
+  if (!isValidName(name)) {
+    alert("Please enter a valid name with two words!");
+    return;
+  }
+  if (!isValidEmail(email)) {
+    alert("Please enter a valid email id!");
+    return;
+  }
+  if (!isValidIndianPhoneNumber(phone)) {
+    alert("Please enter a valid Phone number starting with \"+91-\".");
+    return;
+  }
   var raw = JSON.stringify({
     username: username,
-    name: document.getElementById("name-input").value,
-    email: document.getElementById("email-input").value,
-    phoneNumber: document.getElementById("phone-input").value,
+    name: name,
+    email: email,
+    phoneNumber: phone,
   });
   var myHeaders = new Headers();
   myHeaders.append("Origin", "origin-is-here");
@@ -294,4 +309,22 @@ async function saveData(username) {
 }
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isValidName(nameValue) {
+  // Define a function to be executed when the input loses focus
+  const nameRegex = /^[a-zA-Z]+ [a-zA-Z]+$/;
+  return nameRegex.test(nameValue);
+}
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function isValidIndianPhoneNumber(phoneNumber) {
+  // Regular expression for Indian phone numbers
+  const regex = /^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/;
+
+  return regex.test(phoneNumber);
 }
