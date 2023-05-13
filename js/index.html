@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FsAssignment</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body id="main">
+    <div id="message" class="fixed-header"></div>
+    <!-- <p>Toggle mode:</p> -->
+    <div class="toggle-mode">
+      <button id="dark-mode">Toggle Dark Mode</button>
+    </div>
+    <div id="module-1" class="container">
+      <div class="form-div" style="display: flex; flex-direction: column">
+        <form class="form" style="float: left;width: 50%;">
+          <h2>Login Form</h2>
+          <input type="text" id="loginUsername" placeholder="Username" />
+          <input type="password" id="loginPassword" placeholder="Password" />
+          <input type="button" value="Login" onclick="loginFunction()" />
+        </form>
+      </div>
+      <!-- <div id="signup-message"></div> -->
+      <div class="form-div" style="display: flex; flex-direction: column">
+        <form class="form" style="float: left;;width: 50%;">
+          <h2>Signup Form</h2>
+          <input type="text" id="signupUsername" placeholder="Username" />
+          <input type="password" id="signupPassword" placeholder="Password" />
+          <input
+            type="password"
+            id="signupPasswordCheck"
+            placeholder="Confirm Password"
+          />
+          <input type="button" value="Signup" onclick="signupFunction()" />
+        </form>
+      </div>
+    </div>
+  </body>
+  <script src="/js/app.js"></script>
+</html>
