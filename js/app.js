@@ -182,6 +182,18 @@ function showProfile(username) {
       actualbutton.id = "check-coin-button";
       actualbutton.style.backgroundColor = "darkblue";
       actualbutton.onclick = function () {
+        fetch("http://localhost:8080/user/" + username, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            myElement.classList.add("error-message");
+            myElement.innerText = "Invalid call!!";
+          });
         showModule2();
       };
       checkCoinDiv.appendChild(actualbutton);
