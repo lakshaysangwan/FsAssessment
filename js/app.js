@@ -1,4 +1,5 @@
 const myElement = document.getElementById("message");
+const coinList = ["ADA", "ATOM", "BCH", "BNB", "BTC"];
 //login function
 function loginFunction() {
   clearMessage();
@@ -114,7 +115,7 @@ function clearMessage() {
 //DarkMode code
 const darkModeButton = document.getElementById("dark-mode");
 
-darkModeButton.addEventListener("click", function() {
+darkModeButton.addEventListener("click", function () {
   // Get the current value of the dark mode class on the body element.
   const isDarkMode = document.body.classList.contains("dark-mode");
 
@@ -128,7 +129,6 @@ darkModeButton.addEventListener("click", function() {
     darkModeButton.textContent = "Enable Dark Mode";
   }
 });
-
 
 //Shows profile after logging in
 function showProfile(username) {
@@ -175,23 +175,19 @@ function showProfile(username) {
       // Add the table to the document body
       document.body.appendChild(table);
       const checkCoinDiv = document.createElement("div");
-      const input = document.createElement("input");
-      input.type = "button";
-      input.value = "Check Coins";
-      checkCoinDiv.classList="check-coin-button"
-      input.style.backgroundColor = "darkblue";
-      input.addEventListener("click", handleClick);
-      // input.style.display ="flex";
-      checkCoinDiv.append(input);
-
-      // Add the onClick event listener
-      
-
-      // Add the input element to the DOM
-      document.getElementById("module-1").appendChild(table)
-      document.getElementById("module-1").appendChild(checkCoinDiv)
-      document.getElementById("module-1").style.display = "block"
-      // document.body.appendChild(checkCoinDiv);
+      const actualbutton = document.createElement("input");
+      actualbutton.type = "button";
+      actualbutton.value = "Check Coins";
+      checkCoinDiv.classList = "check-coin-button";
+      actualbutton.id = "check-coin-button";
+      actualbutton.style.backgroundColor = "darkblue";
+      actualbutton.onclick = function () {
+        showModule2();
+      };
+      checkCoinDiv.appendChild(actualbutton);
+      document.getElementById("module-1").appendChild(table);
+      document.getElementById("module-1").appendChild(checkCoinDiv);
+      document.getElementById("module-1").style.display = "block";
     })
     .catch((error) => {
       showUserDetailsInputForm(username);
@@ -205,7 +201,7 @@ function handleClick() {
 function showUserDetailsInputForm(username) {
   document.getElementById("module-1").innerHTML = "";
   var formDiv = document.createElement("div");
-  formDiv.style.width="100%";
+  formDiv.style.width = "100%";
   var form = document.createElement("form");
   formDiv.id = "details-form";
   // form.style.marginTop = "25px";
@@ -255,8 +251,7 @@ function showUserDetailsInputForm(username) {
   form.appendChild(submitButton);
   formDiv.append(form);
   // Add the form to the page
-  document.getElementById("module-1").appendChild(formDiv)
-  // document.body.appendChild(formDiv);
+  document.getElementById("module-1").appendChild(formDiv);
 }
 
 async function saveData(username) {
@@ -272,7 +267,7 @@ async function saveData(username) {
     return;
   }
   if (!isValidIndianPhoneNumber(phone)) {
-    alert("Please enter a valid Phone number starting with \"+91-\".");
+    alert('Please enter a valid Phone number starting with "+91-".');
     return;
   }
   var raw = JSON.stringify({
@@ -343,4 +338,98 @@ function enableDarkMode() {
 
 function enableLightMode() {
   body.classList.remove("dark-mode");
+}
+const corsAnywhereUrl = "https://cors-anywhere.herokuapp.com/";
+const options = {
+  headers: {
+    "X-CMC_PRO_API_KEY": "27ab17d1-215f-49e5-9ca4-afd48810c149",
+  },
+};
+function showModule2() {
+  document.getElementsByClassName("toggle-mode")[0].style.display = "none";
+  document.getElementById("message").style.display = "none";
+  document.getElementById("module-1").style.display = "none";
+  document.getElementById("module-2").style.display = "block";
+  document.body.style.backgroundColor = "rgb(70, 69, 69)";
+  document.getElementsByClassName("lower-header-right")[0].innerHTML =
+    "Count : " + coinList.length;
+  coinList.forEach((element) => {
+    fetch(
+      corsAnywhereUrl +
+        "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=" +
+        element,
+      options
+    )
+      .then((response) => response.json())
+      .then((sampleResponse) => {
+        const mainCard = document.createElement("div");
+        mainCard.classList = ["main-card"];
+        const innerUpperDiv = document.createElement("div");
+        innerUpperDiv.classList = ["inner-upper-div"];
+        mainCard.appendChild(innerUpperDiv);
+        const upperLeftDiv = document.createElement("div");
+        upperLeftDiv.classList = ["upper-left-div"];
+        innerUpperDiv.appendChild(upperLeftDiv);
+        const coinName = document.createElement("div");
+        coinName.classList = ["coin-name"];
+        coinName.innerHTML =
+          sampleResponse.data[element].name + "&nbsp;&nbsp;&nbsp;";
+        upperLeftDiv.appendChild(coinName);
+        const dailyChange = document.createElement("div");
+        dailyChange.classList = ["daily-change"];
+        const arrowImage = document.createElement("img");
+        arrowImage.classList = ["arrow"];
+        arrowImage.style.height = "20px";
+        const changeValue =
+          sampleResponse.data[element].quote.USD.percent_change_24h.toFixed(2);
+        if (changeValue > 0) {
+          arrowImage.src = "/images/arrow-small-up.png";
+        } else {
+          arrowImage.src = "/images/arrow-small-down.png";
+        }
+        const coinChangeValue = document.createElement("div");
+        coinChangeValue.classList = ["24h-change-value"];
+        coinChangeValue.innerHTML = changeValue + "%";
+        dailyChange.appendChild(arrowImage);
+        dailyChange.appendChild(coinChangeValue);
+        upperLeftDiv.appendChild(dailyChange);
+        const upperRightDiv = document.createElement("div");
+        upperRightDiv.classList = ["upper-right-div"];
+        upperRightDiv.innerHTML = sampleResponse.data[element].symbol;
+        innerUpperDiv.appendChild(upperRightDiv);
+        const innerLowerDiv = document.createElement("div");
+        innerLowerDiv.classList = ["inner-lower-div"];
+        const lowerFirst = document.createElement("div");
+        lowerFirst.classList = ["lower-first"];
+        const element1 = document.createElement("div");
+        element1.innerHTML = "Price &nbsp;$";
+        const priceValue = document.createElement("div");
+        priceValue.classList = ["price-value"];
+        priceValue.innerHTML =
+          sampleResponse.data[element].quote.USD.price.toFixed(2);
+        lowerFirst.appendChild(element1);
+        lowerFirst.appendChild(priceValue);
+        const lowerMiddle = document.createElement("div");
+        lowerMiddle.classList = ["lower-middle"];
+        const element2 = document.createElement("div");
+        element2.innerHTML = "Rank &nbsp;";
+        const rankValue = document.createElement("div");
+        rankValue.classList = ["rank-value"];
+        rankValue.innerHTML = sampleResponse.data[element].cmc_rank;
+        lowerMiddle.appendChild(element2);
+        lowerMiddle.appendChild(rankValue);
+        const lowerEnd = document.createElement("div");
+        lowerEnd.classList = ["lower-end"];
+        const finalImage = document.createElement("img");
+        finalImage.src = "/images/arrow-circle-right.png";
+        finalImage.style.height = "30px";
+        lowerEnd.appendChild(finalImage);
+        innerLowerDiv.appendChild(lowerFirst);
+        innerLowerDiv.appendChild(lowerMiddle);
+        innerLowerDiv.appendChild(lowerEnd);
+        mainCard.appendChild(innerLowerDiv);
+        document.body.appendChild(mainCard);
+      })
+      .catch((error) => console.log(error));
+  });
 }

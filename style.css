@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  /* border: 1px solid red; */
 }
 html {
   height: 100%;
@@ -75,7 +76,7 @@ body.dark-mode {
 }
 
 #module-1 {
-  vertical-align:middle;
+  vertical-align: middle;
   margin-top: 10em;
   display: flex;
   justify-content: center;
@@ -107,13 +108,14 @@ table {
   width: 60%;
   text-align: left;
 }
-th, td {
+th,
+td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 th {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -123,13 +125,101 @@ input[type="button"] {
   cursor: pointer;
 }
 
-.check-coin-button{
+.check-coin-button {
   margin: auto;
-  display: flex; justify-content: center
+  display: flex;
+  justify-content: center;
 }
 
-#details-form form{
+#details-form form {
   width: fit-content;
   margin: auto;
   align-items: center;
+}
+
+header {
+  text-align: center;
+  color: white;
+  background-color: black;
+}
+.main-card {
+  /* display: flex; */
+  background-color: black;
+  max-width: 500px;
+  margin: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.inner-upper-div {
+  display: flex;
+  color: white;
+  min-height: 60%;
+  padding: 2%;
+  padding-left: 4%;
+}
+.upper-left-div {
+  display: flex;
+  width: 80%;
+}
+.coin-name {
+  color: yellow;
+  font-weight: bold;
+}
+.daily-change {
+  display: flex;
+}
+.upper-right-div {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  right: 0;
+  align-items: center;
+  width: 25%;
+  background-color: rgba(156, 155, 155, 0.589);
+  border-radius: 10px;
+}
+.inner-lower-div {
+  color: white;
+  min-height: 40px;
+  display: flex;
+  padding-left: 2%;
+  align-items: center;
+  justify-content: center;
+}
+.lower-first {
+  display: flex;
+  width: 30%;
+}
+.lower-middle {
+  display: flex;
+  width: 60%;
+}
+.form-div {
+  display: flex;
+  flex-direction: column;
+}
+.form {
+  float: left;
+  width: 50%;
+}
+.lower-header {
+  margin: auto;
+  min-width: 90%;
+  max-width: 60%;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(70, 69, 69);
+  padding: 10px;
+}
+.lower-header-left {
+  display: flex;
+}
+.lower-header-left-text {
+  text-align: left;
+  color: rgb(255, 255, 5);
+  text-decoration: solid;
+}
+.lower-header-right {
+  text-align: right;
+  color: white;
 }
